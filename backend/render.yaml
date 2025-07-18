@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: p2p-usdt-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./p2p_trading.db
+      - key: ESCROW_WALLET_ADDRESS
+        value: TXxxxxxx
+      - key: COMMISSION_PERCENT
+        value: "1.5"
+      - key: RELEASE_SECRET
+        generateValue: true
+      - key: TELEGRAM_ADMIN_ID
+        value: "123456789"
+      - key: PYTHONPATH
+        value: /opt/render/project/src
+    healthCheckPath: /health
+
